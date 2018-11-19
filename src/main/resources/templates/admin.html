@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>管理界面</title>
+</head>
+<body>
+<p th:text="${user.realName}+' 管理员您好'"></p>
+<br>
+这里是用户列表
+<br/>
+<a href="/addUser">添加用户</a>
+<a href="/addRole">添加角色</a>
+<a href="/roleList">角色列表</a>
+<a href="/addPerm">添加权限</a>
+<a href="/permList">权限列表</a>
+<a href="/index">返回首页</a>
+</body>
+</html>

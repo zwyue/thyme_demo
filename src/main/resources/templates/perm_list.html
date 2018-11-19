@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="/admin">返回管理页</a>
+
+<ul th:each="pl : ${permList}">
+    <li >
+        <b th:text="${pl.permName}"></b>
+        <b th:text="${pl.permForm}"></b>
+        <b th:text="${pl.permAddress}"></b>
+        <b th:text="${pl.updateTime}"></b>
+        <b th:text="${pl.createTime}"></b>
+    </li>
+</ul>
+</body>
+</html>

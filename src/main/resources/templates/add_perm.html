@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        添加权限
+    </div>
+    <form action="/addPerm" method="post">
+        <p>权限名：<input type="text" name="permName"/></p>
+        <p>权限地址：<input type="text" name="permAddress"/></p>
+        <p>父权限：<input type="text" name="parentNode"/></p>
+        <p>权限形式：<input type="text" name="permForm"/></p>
+        <p><input type="submit" value="提交"/></p>
+    </form>
+    <a href="/admin">用户管理</a>
+</body>
+</html>

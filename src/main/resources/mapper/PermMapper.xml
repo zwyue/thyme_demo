@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhu.thyme_demo.mapper.PermMapper">
+
+    <select id="queryPerm" parameterType="java.lang.String" resultType="com.zhu.thyme_demo.entity.UserPerm">
+        SELECT
+        id,
+        perm_name permName,
+        perm_status permStatus,
+        perm_form permForm,
+        parent_node parentNode,
+        create_time createTime,
+        update_time updateTime
+        FROM
+        user_permission
+        WHERE
+        1=1
+        <if test="permName!=null">
+            and perm_name = #{permName}
+        </if>
+    </select>
+
+    <select id="countFacultyByRealName" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(id) from user_faculty where id = #{value}
+    </select>
+
+    <select id="lastFacultyNo"  resultType="java.lang.String">
+        select faculty_no from user_faculty order by id desc limit 1;
+    </select>
+
+    <insert id="addPerm" parameterType="com.zhu.thyme_demo.entity.UserPerm" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into user_permission
+        ( perm_name,
+        perm_form,
+        perm_address,
+        parent_node)
+        values (#{permName},#{permForm},#{permAddress},#{parentNode})
+        <selectKey resultType="int" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+</mapper>

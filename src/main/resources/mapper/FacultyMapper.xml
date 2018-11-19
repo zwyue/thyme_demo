@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhu.thyme_demo.mapper.FacultyMapper">
+
+    <select id="queryFacultyByName" parameterType="java.lang.String" resultType="com.zhu.thyme_demo.entity.Faculty">
+        SELECT
+            id,
+            faculty_no facultyNo,
+            realname,
+            salt,
+            PASSWORD,
+            create_time createTime,
+            update_time updateTime
+        FROM
+            user_faculty
+        WHERE
+            faculty_no = #{value }
+    </select>
+
+    <select id="countFacultyByRealName" parameterType="java.lang.String" resultType="java.lang.Integer">
+      select count(id) from user_faculty where id = #{value}
+    </select>
+
+    <select id="lastFacultyNo"  resultType="java.lang.String">
+      select faculty_no from user_faculty order by id desc limit 1;
+    </select>
+
+    <insert id="addFaculty" parameterType="com.zhu.thyme_demo.entity.Faculty" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+      insert into user_faculty
+      ( realname,
+        faculty_no,
+        salt,
+        password)
+        values (#{realName},#{facultyNo},#{salt},#{password})
+        <selectKey resultType="int" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+</mapper>
