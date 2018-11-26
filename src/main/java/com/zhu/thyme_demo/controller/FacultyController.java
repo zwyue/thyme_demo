@@ -4,6 +4,7 @@ import com.zhu.thyme_demo.config.base.BaseController;
 import com.zhu.thyme_demo.config.shiro.ShiroUtils;
 import com.zhu.thyme_demo.entity.Faculty;
 import com.zhu.thyme_demo.service.FacultyService;
+import com.zhu.thyme_demo.util.FileUtil;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -20,8 +21,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.* ;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * @Auther: Joanne
@@ -42,85 +43,10 @@ public class FacultyController extends BaseController {
         return "index";
     }
 
-    @RequestMapping(value = {"download"}, method = RequestMethod.GET)
-    public String wordDownLoad(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String fileName = "test.txt";// 文件名
-        if (fileName != null) {
-            //设置文件路径
-            File file = new File("C:\\zwy\\project\\SADProgect\\test.txt");
-            //File file = new File(realPath , fileName);
-            if (file.exists()) {
-                response.setContentType("application/force-download");// 设置强制下载不打开
-                response.addHeader("Content-Disposition", "attachment;fileName=" + fileName);// 设置文件名
-
-                InputStream is =  new BufferedInputStream(new FileInputStream("C:\\zwy\\project\\SADProgect\\test.txt"));
-
-                FileInputStream fis = null;
-                BufferedInputStream bis = null;
-                try {
-                    fis = new FileInputStream(file);
-                    bis = new BufferedInputStream(fis);
-                    OutputStream os = response.getOutputStream();
-                    byte[] buffer = new byte[fis.available()];
-                    int i = bis.read(buffer);
-                    while (i != -1) {
-                        os.write(buffer, 0, i);
-                        i = bis.read(buffer);
-                    }
-                    return "下载成功";
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    if (bis != null) {
-                        try {
-                            bis.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    if (fis != null) {
-                        try {
-                            fis.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-        }
-        return "下载失败";
-    }
-
     @RequestMapping(value = {"downloadWord"}, method = RequestMethod.GET)
-    public String downLoadWord(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        try {
-//            exportWord();
-            // path是指欲下载的文件的路径。
-            File file = new File("C:\\zwy\\project\\SADProgect\\create_table.docx");
-            // 取得文件名。
-            String filename = file.getName();
-            // 取得文件的后缀名。
-            String ext = filename.substring(filename.lastIndexOf(".") + 1).toUpperCase();
-
-            // 以流的形式下载文件。
-            InputStream fis = new BufferedInputStream(new FileInputStream("C:\\zwy\\project\\SADProgect\\create_table.docx"));
-            byte[] buffer = new byte[fis.available()];
-            fis.read(buffer);
-            fis.close();
-            // 清空response
-            response.reset();
-            // 设置response的Header
-            response.addHeader("Content-Disposition", "attachment;filename=" + new String(filename.getBytes()));
-            response.addHeader("Content-Length", "" + file.length());
-            OutputStream toClient = new BufferedOutputStream(response.getOutputStream());
-            response.setContentType("application/octet-stream");
-            toClient.write(buffer);
-            toClient.flush();
-            toClient.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return "success";
+    public String downLoadWord(HttpServletResponse response) throws Exception {
+        String filePath = FileUtil.downLoadWord(response);
+        return null;
     }
 
     /**
@@ -162,6 +88,13 @@ public class FacultyController extends BaseController {
     public String user(Model model) {
         model.addAttribute("user", getLoginFaculty());
         return "user";
+    }
+
+    @RequestMapping(value = "userList",method = RequestMethod.GET)
+    public String userList(Model model) {
+        List<Faculty> faculties =  facultyService.queryFaculty();
+        model.addAttribute("userList",faculties);
+        return "user_list";
     }
 
     @RequiresPermissions("user:get")

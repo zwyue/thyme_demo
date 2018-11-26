@@ -1,10 +1,15 @@
-package com.zhu.thyme_demo.service.ServiceImpl;
+package com.zhu.thyme_demo.service.serviceImpl;
 
 import com.zhu.thyme_demo.entity.Faculty;
 import com.zhu.thyme_demo.mapper.FacultyMapper;
 import com.zhu.thyme_demo.service.FacultyService;
+import com.zhu.thyme_demo.util.GenerateWord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.util.List;
 
 /**
  * @Auther: Joanne
@@ -35,5 +40,10 @@ public class FacultyServiceImpl implements FacultyService {
     @Override
     public String lastFacultyNo() {
         return facultyMapper.lastFacultyNo();
+    }
+
+    @Override
+    public List<Faculty> queryFaculty() {
+        return facultyMapper.queryFaculty();
     }
 }

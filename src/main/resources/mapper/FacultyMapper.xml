@@ -17,6 +17,18 @@
             faculty_no = #{value }
     </select>
 
+    <select id="queryFaculty" parameterType="java.lang.String" resultType="com.zhu.thyme_demo.entity.Faculty">
+        SELECT
+            id,
+            faculty_no facultyNo,
+            realname,
+            status,
+            create_time createTime,
+            update_time updateTime
+        FROM
+            user_faculty
+    </select>
+
     <select id="countFacultyByRealName" parameterType="java.lang.String" resultType="java.lang.Integer">
       select count(id) from user_faculty where id = #{value}
     </select>

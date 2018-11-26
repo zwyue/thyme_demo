@@ -2,6 +2,10 @@ package com.zhu.thyme_demo.service;
 
 import com.zhu.thyme_demo.entity.Faculty;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * @Auther: Joanne
@@ -16,4 +20,6 @@ public interface FacultyService {
     int countFacultyByRealName(String realName);
 
     String lastFacultyNo();
+
+    List<Faculty> queryFaculty();
 }

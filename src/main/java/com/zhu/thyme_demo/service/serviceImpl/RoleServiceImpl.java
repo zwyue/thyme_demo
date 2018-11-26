@@ -1,4 +1,4 @@
-package com.zhu.thyme_demo.service.ServiceImpl;
+package com.zhu.thyme_demo.service.serviceImpl;
 
 import com.zhu.thyme_demo.entity.UserRole;
 import com.zhu.thyme_demo.mapper.RoleMapper;

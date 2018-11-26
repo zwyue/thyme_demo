@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="/admin">返回管理页</a>
+
+    <ul th:each="ul : ${userList}">
+        <a href="/roleList?facultyNo="+${ul.facultyNo}>
+            <li >
+                <b th:text="${ul.realName}">|</b>
+                <b th:text="${ul.facultyNo}">|</b>
+                <b th:text="${ul.status}">|</b>
+                <b th:text="${ul.updateTime}">|</b>
+                <b th:text="${ul.createTime}">|</b>
+            </li>
+        </a>
+    </ul>
+</body>
+</html>

@@ -5,48 +5,56 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 import java.io.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
-public class WordTest {
+public class GenerateWord {
 
     private Configuration configuration = null;
 
-    public WordTest(){
+    public GenerateWord(){
         configuration = new Configuration();
         configuration.setDefaultEncoding("UTF-8");
     }
 
     public static void main(String[] args) {
-        WordTest test = new WordTest();
+        GenerateWord test = new GenerateWord();
         test.createWord();
     }
 
-    public void createWord(){
+    public String createWord(){
         Map<String,Object> dataMap=new HashMap<String,Object>();
         getData(dataMap);
         configuration.setClassForTemplateLoading(this.getClass(), "/templates");//模板文件所在路径
         Template t=null;
         try {
-            t = configuration.getTemplate("worddemo.ftl"); //获取模板文件
+            t = configuration.getTemplate("test.ftl"); //获取模板文件
         } catch (IOException e) {
             e.printStackTrace();
         }
-        File outFile = new File("C:/zwy/outFile"+Math.random()*10000+".doc"); //导出文件
+        String filePath = "C:/zwy/outFile/"+ UUID.randomUUID() +".doc" ;
+        File outFile = new File(filePath); //导出文件
         Writer out = null;
         try {
             out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outFile)));
         } catch (FileNotFoundException e1) {
             e1.printStackTrace();
+            return null ;
         }
 
         try {
             t.process(dataMap, out); //将填充数据填入模板文件并输出到目标文件
         } catch (TemplateException e) {
             e.printStackTrace();
+            return null ;
         } catch (IOException e) {
             e.printStackTrace();
+            return null ;
         }
+        return filePath ;
     }
 
     private void getData(Map<String, Object> dataMap) {

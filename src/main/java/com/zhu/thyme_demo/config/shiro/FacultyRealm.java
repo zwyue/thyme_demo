@@ -1,5 +1,6 @@
 package com.zhu.thyme_demo.config.shiro;
 
+import com.zhu.thyme_demo.config.exception.ExceptionEnum;
 import com.zhu.thyme_demo.constant.SysConstant;
 import com.zhu.thyme_demo.entity.Faculty;
 import com.zhu.thyme_demo.service.FacultyService;

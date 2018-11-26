@@ -17,4 +17,7 @@ public class Faculty {
     private String salt;
     private String password;
     private Boolean isAdmin ;
+    private Integer status ;
+    private String updateTime ;
+    private String createTime ;
 }

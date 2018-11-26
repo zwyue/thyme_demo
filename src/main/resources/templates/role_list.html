@@ -6,9 +6,38 @@
 </head>
 <body>
 <a href="/admin">角色列表</a>
-
-<ul th:each="rl : ${roleList}">
-    <li th:text="${rl.roleName}"></li>
-</ul>
+<form id="role_form">
+    <input id="content" style="display: none" type="text">
+    <ul th:each="rl : ${roleList}">
+        <li>
+            <input type="checkbox" th:value="${rl.id}" name="role_id">
+            <b th:text="${rl.roleName}">|</b>
+        </li>
+    </ul>
+    <input type="button" onclick="assignRole()" value="提交">
+</form>
 </body>
+<script>
+    function assignRole() {
+        var content = window.opener.document.facultyNo;
+        var form = document.getElementById("role_form");
+        morecheck() ;
+        if(confirm("确定要分配吗？")){
+            form.action="/assignRole";
+            form.submit();
+        }
+    }
+    function morecheck() {
+        var bb = "";
+        var temp = "";
+        var a = document.getElementsByName("role_id");
+        for ( var i = 0; i < a.length; i++) {
+            if (a[i].checked) {
+                temp = a[i].value;
+                bb = bb + "," +temp;
+            }
+        }
+        document.getElementById("content").value = bb .substring(1, bb.length); //赋值给隐藏域
+    }
+</script>
 </html>
