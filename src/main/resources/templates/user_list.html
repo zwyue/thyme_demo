@@ -8,7 +8,8 @@
 <a href="/admin">返回管理页</a>
 
     <ul th:each="ul : ${userList}">
-        <a href="/roleList?facultyNo="+${ul.facultyNo}>
+        <!--<a href="/roleList?facultyNo="+${ul.facultyNo}>-->
+        <a th:href="@{'/roleList?facultyId='+${ul.id}}">
             <li >
                 <b th:text="${ul.realName}">|</b>
                 <b th:text="${ul.facultyNo}">|</b>

@@ -8,4 +8,6 @@ public interface RoleService {
     Integer addRole(UserRole role);
 
     List<UserRole> queryRole();
+
+    Integer assignRole(Integer facultyId, Integer[] roleIds);
 }

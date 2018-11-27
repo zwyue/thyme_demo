@@ -41,14 +41,16 @@ public class RoleController {
     }
 
     @RequestMapping(value = "roleList",method = GET)
-    public String roleList(Model model){
+    public String roleList(Model model,Integer facultyId){
         List<UserRole> roleList = roleService.queryRole();
         model.addAttribute("roleList",roleList);
+        model.addAttribute("facultyId",facultyId);
         return "role_list";
     }
 
     @RequestMapping(value = "assignRole",method = POST)
-    public String assignRole(Model model, String[] facultyNo){
+    public String assignRole(Model model, Integer facultyId,Integer[] roleIds){
+        roleService.assignRole(facultyId,roleIds);
         List<UserRole> roleList = roleService.queryRole();
         model.addAttribute("roleList",roleList);
         return "role_list";

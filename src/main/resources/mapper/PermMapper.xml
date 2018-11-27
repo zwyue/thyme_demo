@@ -28,6 +28,10 @@
         select faculty_no from user_faculty order by id desc limit 1;
     </select>
 
+    <select id="countPermByRoleId"  resultType="java.lang.Integer">
+        select count(role_id) from role_perm where role_id = #{value };
+    </select>
+
     <insert id="addPerm" parameterType="com.zhu.thyme_demo.entity.UserPerm" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         insert into user_permission
         ( perm_name,
@@ -39,4 +43,23 @@
             SELECT LAST_INSERT_ID()
         </selectKey>
     </insert>
+
+    <insert id="addRolePermRelation" parameterType="java.util.Map" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into role_perm(role_id, perm_ids) values (#{roleId},#{permIds})
+        <selectKey resultType="int" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <update id="updateRolePermRelation" parameterType="java.util.Map">
+        update role_perm set perm_ids = #{permIds} where role_id = #{roleId}
+    </update>
+
+    <delete id="deletePerm" parameterType="java.util.List">
+        delete from user_permission where id in
+        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
 </mapper>

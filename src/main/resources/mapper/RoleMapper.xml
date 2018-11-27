@@ -26,6 +26,21 @@
       select faculty_no from user_faculty order by id desc limit 1;
     </select>
 
+    <select id="countFacultyByFacultyId"  parameterType="java.lang.Integer" resultType="java.lang.Integer">
+      select count(faculty_id) from faculty_role where faculty_id = #{value };
+    </select>
+    
+    <insert id="addFacultyRoleRelation" parameterType="java.util.Map" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into faculty_role (faculty_id, role_ids) values (#{facultyId},#{roleIds})
+        <selectKey resultType="int" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <update id="updateFacultyRoleRelation" parameterType="java.util.Map">
+        update faculty_role set role_ids = #{roleIds} where faculty_id = #{facultyId}
+    </update>
+
     <insert id="addRole" parameterType="com.zhu.thyme_demo.entity.UserRole" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         insert into user_role
         ( role_name)

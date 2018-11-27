@@ -5,25 +5,29 @@
     <title>Title</title>
 </head>
 <body>
-<a href="/admin">角色列表</a>
-<form id="role_form">
-    <input id="content" style="display: none" type="text">
+<a href="/admin">返回管理页</a>
+<form id="role_form" method="post" action="/assignRole">
+    <input id="content" style="display: none" type="text" th:value="${facultyId}" name="facultyId">
     <ul th:each="rl : ${roleList}">
         <li>
-            <input type="checkbox" th:value="${rl.id}" name="role_id">
-            <b th:text="${rl.roleName}">|</b>
+            <input type="checkbox" th:value="${rl.id}" name="roleIds">
+            <a th:href="@{'/permList?roleId='+${rl.id}}">
+                <b th:text="${rl.roleName}">|</b>
+            </a>
         </li>
     </ul>
-    <input type="button" onclick="assignRole()" value="提交">
+    <input type="submit" value="提交">
+    <!--<input type="button" onclick="assignRole()" value="提交">-->
 </form>
 </body>
 <script>
     function assignRole() {
-        var content = window.opener.document.facultyNo;
+        // var content = window.opener.document.facultyNo;
         var form = document.getElementById("role_form");
         morecheck() ;
         if(confirm("确定要分配吗？")){
             form.action="/assignRole";
+            form.method = "post";
             form.submit();
         }
     }

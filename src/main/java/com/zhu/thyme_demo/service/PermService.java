@@ -9,4 +9,8 @@ public interface PermService {
     Integer addPerm(UserPerm userPerm);
 
     List<UserPerm> queryPerm();
+
+    Integer assignPerm(Integer roleId, Integer[] permIds);
+
+    Integer deletePerm(List<Integer> permIds);
 }

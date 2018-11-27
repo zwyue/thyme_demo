@@ -2,19 +2,61 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <title>Title</title>
+    <script type="text/javascript" th:inline="javascript"></script>
+    <script src="../static/js/jquery-3.3.1.js" type="text/javascript" th:src="@{js/jquery-3.3.1.js}"></script>
+
 </head>
 <body>
 <a href="/admin">返回管理页</a>
 
-<ul th:each="pl : ${permList}">
-    <li >
-        <b th:text="${pl.permName}"></b>
-        <b th:text="${pl.permForm}"></b>
-        <b th:text="${pl.permAddress}"></b>
-        <b th:text="${pl.updateTime}"></b>
-        <b th:text="${pl.createTime}"></b>
-    </li>
-</ul>
+<form id="role_form" method="post" action="/assignPerm">
+    <input id="content" style="display: none" type="text" th:value="${roleId}" name="roleId">
+    <ul th:each="pl : ${permList}">
+        <li>
+            <input type="checkbox" th:value="${pl.id}" name="permIds">
+            <b th:text="${pl.permName}"></b>
+            <b th:text="${pl.permForm}"></b>
+            <b th:text="${pl.permAddress}"></b>
+            <b th:text="${pl.updateTime}"></b>
+            <b th:text="${pl.createTime}"></b>
+        </li>
+    </ul>
+    <input type="submit" value="提交">
+    <input type="button" onclick="deletePerm()" value="删除权限">
+</form>
 </body>
+<script type="text/javascript" th:inline="javascript">
+    function deletePerm() {
+        // var permIds = document.getElementsByName("permIds").values();
+        var permIds = document.getElementsByName("permIds");
+        var sysUrl = document.baseURI ;
+        var permArray=[],temp;
+
+        for ( var i = 0; i < permIds.length; i++) {
+            if(permIds[i].checked){
+                permArray.push(permIds[i].value)
+            }
+        }
+
+        var url = sysUrl.substring(0,sysUrl.lastIndexOf("/")) + "/deletePerm";
+
+        $.ajax({
+            url:'/deletePerm' ,
+            async : true,
+            type: 'post',
+            dataType: 'json',
+            data: {
+                permIds:permArray
+            },
+            success: function(){
+                console.log(1111111);
+            },
+            error: function(){
+                console.log(2222222);
+            }
+        });
+    }
+</script>
 </html>

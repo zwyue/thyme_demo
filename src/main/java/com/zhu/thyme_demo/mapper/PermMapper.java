@@ -4,6 +4,7 @@ import com.zhu.thyme_demo.entity.UserPerm;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Auther: Joanne
@@ -16,4 +17,12 @@ public interface PermMapper {
     Integer addPerm(UserPerm userPerm);
 
     List<UserPerm> queryPerm();
+
+    Integer countPermByRoleId(Integer roleId);
+
+    Integer addRolePermRelation(Map map);
+
+    Integer updateRolePermRelation(Map map);
+
+    Integer deletePerm(List<Integer> permIds);
 }
