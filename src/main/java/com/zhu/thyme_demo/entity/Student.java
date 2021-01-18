@@ -1,15 +1,13 @@
 package com.zhu.thyme_demo.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * @Auther: Joanne
  * @Date: 2018/11/13 18:50
  * @Description:
  */
-@Getter
-@Setter
+@Data
 public class Student {
     private Integer id ;
     private String stuName ;

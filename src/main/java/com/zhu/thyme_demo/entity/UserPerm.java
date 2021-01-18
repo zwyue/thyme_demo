@@ -1,15 +1,13 @@
 package com.zhu.thyme_demo.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * @Auther: Joanne
  * @Date: 2018/11/19 14:04
  * @Description:
  */
-@Getter
-@Setter
+@Data
 public class UserPerm {
     private Integer id ;
 

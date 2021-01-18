@@ -1,15 +1,14 @@
 package com.zhu.thyme_demo.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * @Auther: Joanne
- * @Date: 2018/11/19 09:24
- * @Description:
+ * @author Joanne
+ * @date 2018/11/19 09:24
  */
-@Getter
-@Setter
+@Data
 public class UserRole {
     private Integer id;
     private String roleName;
